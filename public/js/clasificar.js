@@ -17,7 +17,7 @@ calcular.addEventListener('click', async () => {
     rooms
   })
   clasification === 1
-    ? Swal.fire('Clasificacion', 'ASISTENSIA', 'success')
+    ? Swal.fire('Clasificacion', 'ASISTENCIA', 'success')
     : Swal.fire('Clasificacion', 'FALTA', 'warning')
 })
 
