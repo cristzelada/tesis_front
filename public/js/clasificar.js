@@ -9,16 +9,24 @@ calcular.addEventListener('click', async () => {
   const months = document.getElementById('months').value
   const rooms = document.getElementById('rooms').value
 
-  const clasification = await getClasification({
+  const response = await getClasification({
     weekday,
     chanel,
     typeroom,
     months,
     rooms
   })
-  clasification === 1
-    ? Swal.fire('Clasificacion', 'ASISTENCIA', 'success')
-    : Swal.fire('Clasificacion', 'FALTA', 'warning')
+  response.clasification === 1
+    ? Swal.fire(
+        'Clasificacion',
+        `ASISTENCIA(${response.clasification}) score : ${response.positive}`,
+        'success'
+      )
+    : Swal.fire(
+        'Clasificacion',
+        `FALTA(${response.clasification}) score:  ${response.negative}`,
+        'warning'
+      )
 })
 
 const getClasification = async (data) => {
@@ -29,7 +37,7 @@ const getClasification = async (data) => {
       data
     )
     waiting(false)
-    return response.data.clasification
+    return response.data
   } catch (error) {
     console.log(error)
     waiting(false)
