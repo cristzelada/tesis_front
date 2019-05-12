@@ -138,7 +138,7 @@ const getLabels = (data) => {
 const getPredictionData = async () => {
   try {
     const response = await axios.get(
-      'https://api-peracrist.herokuapp.com/prediction'
+      'https://peracrist.herokuapp.com/prediction'
       // 'http://localhost:3000/prediction'
     )
     return response.data.prediction

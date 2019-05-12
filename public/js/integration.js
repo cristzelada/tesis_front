@@ -57,7 +57,7 @@ const getPredictLabels = () => {
 const predict = async (quantity) => {
   try {
     const response = await axios.get(
-      `https://api-peracrist.herokuapp.com/prediction?quantity=${quantity}`
+      `https://peracrist.herokuapp.com/prediction?quantity=${quantity}`
       // `http://localhost:3000/prediction?quantity=${quantity}`
     )
     return response.data.prediction
@@ -182,7 +182,7 @@ const getHitoryLabels = (data) => {
 const getPredictionData = async () => {
   try {
     const response = await axios.get(
-      'https://api-peracrist.herokuapp.com/prediction'
+      'https://peracrist.herokuapp.com/prediction'
       // 'http://localhost:3000/prediction'
     )
     return response.data.prediction
