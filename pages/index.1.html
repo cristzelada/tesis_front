@@ -17,7 +17,6 @@
   <link rel="stylesheet" href="static/css/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="static/images/favicon.png" />
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
   <script src="static/js/onload.js"></script>
 </head>
 
@@ -72,21 +71,60 @@
               <span class="menu-title">Clasificar reserva</span>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/integracion">
-              <i class="menu-icon mdi mdi-backup-restore"></i>
-              <span class="menu-title">Integracion</span>
-            </a>
-          </li>
         </ul>
       </nav>
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
           <div class="row">
-            <div class="col-lg-10 grid-margin stretch-card"> 
-                <canvas id="predictionChart" width="600" height="400"></canvas>
+            <div class="col-lg-4 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Reservas concretadas 2012</h4>
+                    <canvas id="lineChart-2012" style="height:250px"></canvas>
+                  </div>
+                </div>
             </div>
+            <div class="col-lg-4 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Reservas concretadas 2013</h4>
+                    <canvas id="lineChart-2013" style="height:250px"></canvas>
+                  </div>
+                </div>
+            </div>
+            <div class="col-lg-4 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Reservas concretadas 2014</h4>
+                    <canvas id="lineChart-2014" style="height:250px"></canvas>
+                  </div>
+                </div>
+            </div>
+            <div class="col-lg-4 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Reservas concretadas 2015</h4>
+                  <canvas id="lineChart-2015" style="height:250px"></canvas>
+                </div>
+              </div>
+          </div>
+          <div class="col-lg-4 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Reservas concretadas 2016</h4>
+                  <canvas id="lineChart-2016" style="height:250px"></canvas>
+                </div>
+              </div>
+          </div>
+          <div class="col-lg-4 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Reservas concretadas 2017</h4>
+                  <canvas id="lineChart-2017" style="height:250px"></canvas>
+                </div>
+              </div>
+          </div>
           </div>
         </div>
         <!-- content-wrapper ends -->
@@ -101,7 +139,7 @@
     <!-- page-body-wrapper ends -->
   </div>
   <!-- container-scroller -->
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
   <!-- plugins:js -->
   <script src="static/vendors/js/vendor.bundle.base.js"></script>
   <script src="static/vendors/js/vendor.bundle.addons.js"></script>
@@ -111,8 +149,13 @@
   <!-- endinject -->
   <!-- Custom js for this page-->
   <!-- End custom js for this page-->
-  <script src="static/js/prediction_grafico.js"></script>
+  <script src="static/js/chart_2012.js"></script>
   <script src="static/js/main.js"></script>
+  <script src="static/js/chart_2013.js"></script>
+  <script src="static/js/chart_2014.js"></script>
+  <script src="static/js/chart_2015.js"></script>
+  <script src="static/js/chart_2016.js"></script>
+  <script src="static/js/chart_2017.js"></script>
 </body>
 
 </html>

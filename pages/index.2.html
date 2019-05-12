@@ -17,7 +17,6 @@
   <link rel="stylesheet" href="static/css/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="static/images/favicon.png" />
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
   <script src="static/js/onload.js"></script>
 </head>
 
@@ -72,12 +71,6 @@
               <span class="menu-title">Clasificar reserva</span>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/integracion">
-              <i class="menu-icon mdi mdi-backup-restore"></i>
-              <span class="menu-title">Integracion</span>
-            </a>
-          </li>
         </ul>
       </nav>
       <!-- partial -->
@@ -85,7 +78,7 @@
         <div class="content-wrapper">
           <div class="row">
             <div class="col-lg-10 grid-margin stretch-card"> 
-                <canvas id="predictionChart" width="600" height="400"></canvas>
+                <canvas id="speedChart" width="600" height="400"></canvas>
             </div>
           </div>
         </div>
@@ -101,7 +94,7 @@
     <!-- page-body-wrapper ends -->
   </div>
   <!-- container-scroller -->
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
   <!-- plugins:js -->
   <script src="static/vendors/js/vendor.bundle.base.js"></script>
   <script src="static/vendors/js/vendor.bundle.addons.js"></script>
@@ -111,7 +104,7 @@
   <!-- endinject -->
   <!-- Custom js for this page-->
   <!-- End custom js for this page-->
-  <script src="static/js/prediction_grafico.js"></script>
+  <script src="static/js/chart_history.js"></script>
   <script src="static/js/main.js"></script>
 </body>
 

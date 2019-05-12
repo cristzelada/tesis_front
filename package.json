@@ -11,6 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "holtwinters": "0.0.1",
+    "ml-random-forest": "^1.0.3"
   }
 }

@@ -60,7 +60,7 @@
       <!-- partial:partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link" href="/">
               <i class="menu-icon mdi mdi-television"></i>
               <span class="menu-title">Dashboard</span>
@@ -72,9 +72,9 @@
               <span class="menu-title">Clasificar reserva</span>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item active">
             <a class="nav-link" href="/integracion">
-              <i class="menu-icon mdi mdi-backup-restore"></i>
+              <i class="menu-icon mdi mdi-apple-keyboard-option"></i>
               <span class="menu-title">Integracion</span>
             </a>
           </li>
@@ -83,9 +83,40 @@
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
+          <!-- <div>
+            <input id="quantity"> <button>Predecir</button>
+          </div> -->
           <div class="row">
-            <div class="col-lg-10 grid-margin stretch-card"> 
-                <canvas id="predictionChart" width="600" height="400"></canvas>
+            <div class="col-12"> 
+                <canvas id="predictChart"></canvas>
+            </div>
+            <br/><br/><br/>
+            <div class="col-12"> 
+                <div>
+                    <label>Tope</label>
+                    <input id="topeNum" disabled />
+                  </div>
+                <h3>Actual : Mayo - semana 2 - 2019</h3>
+                <div>
+                  <label>Cantidad Pronosticada</label>
+                  <input id="predictNum" disabled />
+                </div>
+                <div>
+                  <label>Reservas actuales</label>
+                  <input id="reservasNum" disabled />
+                </div>
+                <div>
+                  <label>Reservas clasificadas : asistencia</label>
+                  <input id="reservasPosNum" disabled />
+                </div>
+                <div>
+                  <label>Reservas clasificadas : falta</label>
+                  <input id="reservasNegNum" disabled />
+                </div>
+                <div>
+                  <label>Cantidad real</label>
+                  <input id="realNum" disabled />
+                </div>
             </div>
           </div>
         </div>
@@ -111,7 +142,7 @@
   <!-- endinject -->
   <!-- Custom js for this page-->
   <!-- End custom js for this page-->
-  <script src="static/js/prediction_grafico.js"></script>
+  <script src="static/js/integration.js"></script>
   <script src="static/js/main.js"></script>
 </body>
 
