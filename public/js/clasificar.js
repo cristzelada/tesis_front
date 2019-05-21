@@ -6,13 +6,15 @@ calcular.addEventListener('click', async () => {
   const typeroom = document.getElementById('typeroom').value
   const months = document.getElementById('months').value
   const rooms = document.getElementById('rooms').value
+  const date = document.getElementById('date').value
 
   const response = await postClasification({
     weekday,
     chanel,
     typeroom,
     months,
-    rooms
+    rooms,
+    date
   })
   response.clasification === 1
     ? Swal.fire(
@@ -32,11 +34,7 @@ calcular.addEventListener('click', async () => {
 const postClasification = async (data) => {
   try {
     waiting(true)
-    const response = await axios.post(
-      'https://api-peracrist.herokuapp.com/clasification',
-      // 'http://127.0.0.1:5000/clasification',
-      data
-    )
+    const response = await axios.post(url)
     waiting(false)
     return response.data
   } catch (error) {
@@ -47,10 +45,7 @@ const postClasification = async (data) => {
 
 const getClasification = async () => {
   try {
-    const response = await axios.get(
-      'https://api-peracrist.herokuapp.com/clasification',
-      // 'http://127.0.0.1:5000/clasification'
-    )
+    const response = await axios.get(url)
     return response.data
   } catch (error) {
     console.log(error)
@@ -144,6 +139,5 @@ const getTipoAsistencia = (asistencia) => {
 }
 ;(async function () {
   const clasifications = await getClasification()
-  console.log(clasifications)
   printTable(clasifications)
 })()

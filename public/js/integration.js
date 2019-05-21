@@ -1,23 +1,23 @@
 const main = async () => {
   const data = await predict(16)
-  const historyData = await getPredictionData()
+  const historyArray = await getPredictionData()
   const predictLabels = getPredictLabels()
   const historyLabels = getHitoryLabels()
-  const predictArray = getPredictArray(historyData, data)
+  const predictArray = getPredictArray(historyArray, data)
   new Chart(document.getElementById('predictChart'), {
     type: 'line',
     data: {
       labels: [ ...historyLabels, ...predictLabels ],
       datasets: [
         {
-          data: [ ...historyData ],
+          data: historyArray,
           label: 'Reservas registradas',
           borderColor: '#3e95cd',
           fill: false
         },
         {
           data: predictArray,
-          label: 'Predict',
+          label: 'Predicho',
           borderColor: '#8e5ea2',
           fill: false
         }
@@ -30,7 +30,10 @@ const main = async () => {
       }
     }
   })
-  await setValues(predictArray)
+  await setValues(predictArray, [ ...historyLabels, ...predictLabels ])
+  document.getElementById('date').addEventListener('change', async () => {
+    await setValues(predictArray, [ ...historyLabels, ...predictLabels ])
+  })
 }
 
 const getPredictLabels = () => {
@@ -56,10 +59,7 @@ const getPredictLabels = () => {
 
 const predict = async (quantity) => {
   try {
-    const response = await axios.get(
-      `https://peracrist.herokuapp.com/prediction?quantity=${quantity}`
-      // `http://localhost:3000/prediction?quantity=${quantity}`
-    )
+    const response = await axios.get(`/prediction?quantity=${quantity}`)
     return response.data.prediction
   } catch (error) {
     console.log(error)
@@ -181,10 +181,7 @@ const getHitoryLabels = (data) => {
 
 const getPredictionData = async () => {
   try {
-    const response = await axios.get(
-      'https://peracrist.herokuapp.com/prediction'
-      // 'http://localhost:3000/prediction'
-    )
+    const response = await axios.get('/prediction')
     return response.data.prediction
   } catch (error) {
     console.log(error)
@@ -205,33 +202,89 @@ const getPredictArray = (historyData, predictData) => {
 
 const getClasification = async () => {
   try {
-    const response = await axios.get(
-      'https://api-peracrist.herokuapp.com/clasification'
-      // 'http://127.0.0.1:5000/clasification'
-    )
+    const response = await axios.get(url)
     return response.data
   } catch (error) {
     console.log(error)
   }
 }
 
-const setValues = async (data) => {
-  const topeNum = document.getElementById('topeNum')
+const setValues = async (data, labels) => {
+  deleteValues()
+
+  const date = document.getElementById('date').value
+  const dispo = document.getElementById('dispo').value
   const predictNum = document.getElementById('predictNum')
   const reservasNum = document.getElementById('reservasNum')
   const reservasPosNum = document.getElementById('reservasPosNum')
   const reservasNegNum = document.getElementById('reservasNegNum')
   const realNum = document.getElementById('realNum')
-  const clasifications = await getClasification()
-  const falta = clasifications.filter((x) => x.clasification === 0)
-  const asistencia = clasifications.filter((x) => x.clasification === 1)
+  const overbookingNum = document.getElementById('overbooking')
 
-  topeNum.value = 30
-  predictNum.value = data[113]
-  reservasNum.value = clasifications.length
-  reservasPosNum.value = asistencia.length
-  reservasNegNum.value = falta.length
-  realNum.value = data[113] - falta.length
+  const clasifications = await getClasification()
+
+  const reservationsByDate = filterByDate(clasifications, date)
+  if (reservationsByDate.length) {
+    const falta = reservationsByDate.filter((x) => x.clasification === 0)
+    const asistencia = reservationsByDate.filter((x) => x.clasification === 1)
+
+    const predictReservationsByDate = getPredictReservationByDate(
+      date,
+      data,
+      labels
+    )
+
+    predictNum.value = predictReservationsByDate.length
+    reservasNum.value = reservationsByDate.length
+    reservasPosNum.value = asistencia.length
+    reservasNegNum.value = falta.length
+
+    const validToOverbooking =
+      reservationsByDate.length > dispo &&
+      reservationsByDate.length < predictReservationsByDate.length
+        ? 'HABILITADO'
+        : 'NO HABILITADO'
+
+    const overbooking = overbookingCalcule(
+      reservationsByDate.length,
+      dispo,
+      asistencia.length,
+      falta.length
+    )
+    overbookingNum.value = validToOverbooking
+    realNum.value = overbooking
+  }
+}
+
+const deleteValues = () => {
+  const predictNum = document.getElementById('predictNum')
+  const reservasNum = document.getElementById('reservasNum')
+  const reservasPosNum = document.getElementById('reservasPosNum')
+  const reservasNegNum = document.getElementById('reservasNegNum')
+  const realNum = document.getElementById('realNum')
+  const overbooking = document.getElementById('overbooking')
+
+  predict.value = ''
+  reservasNum.value = ''
+  reservasPosNum.value = ''
+  reservasNegNum.value = ''
+  realNum.value = ''
+  overbooking.value = ''
+}
+
+const getPredictReservationByDate = (date, data, labels) => {
+  return data[labels.indexOf(date)]
+}
+
+const filterByDate = (data, date) => {
+  return data.filter((x) => x.date === date)
+}
+
+const overbookingCalcule = (actual, dispo, real, canceladas) => {
+  if (actual < dispo) return 0
+  if (actual > dispo && real < dispo) return canceladas
+  if (actual > dispo && real > dispo) return 0
+  return 0
 }
 
 main()

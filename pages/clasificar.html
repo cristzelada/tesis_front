@@ -74,7 +74,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/integracion">
-              <i class="menu-icon mdi mdi-backup-restore"></i>
+              <i class="menu-icon mdi mdi-apple-keyboard-option"></i>
               <span class="menu-title">Integracion</span>
             </a>
           </li>
@@ -143,6 +143,20 @@
                             <label for="exampleFormControlSelect1">Cantidad de habitaciones</label>
                             <input  class="form-control form-control-lg" min="1" type="number" value="1" id="rooms">
                         </div>
+                        <div class="form-group col-12">
+                          <label for="exampleFormControlSelect1">Fecha reserva</label>
+                          <select class="form-control form-control-lg" id="date">
+                            <option value="M-S4-2019">M-S4-2019</option>
+                            <option value="J-S1-2019">J-S1-2019</option>
+                            <option value="J-S2-2019">J-S2-2019</option>
+                            <option value="J-S3-2019">J-S3-2019</option>
+                            <option value="J-S4-2019">J-S4-2019</option>
+                            <option value="JL-S1-2019">JL-S1-2019</option>
+                            <option value="JL-S2-2019">JL-S2-2019</option>
+                            <option value="JL-S3-2019">JL-S3-2019</option>
+                            <option value="JL-S4-2019">JL-S4-2019</option>
+                          </select>
+                        </div>
                         <button style="margin-bottom: 20px;" id="calcular" class="btn btn-success mr-2 col-12">Calcular</button>
                     </div>
                   </div>
@@ -207,6 +221,7 @@
   <!-- container-scroller -->
 
   <!-- plugins:js -->
+  <script src="static/js/ws.js"></script>
   <script src="static/js/main.js"></script>
   <script src="static/vendors/js/vendor.bundle.base.js"></script>
   <script src="static/vendors/js/vendor.bundle.addons.js"></script>

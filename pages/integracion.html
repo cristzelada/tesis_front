@@ -91,34 +91,50 @@
                 <canvas id="predictChart"></canvas>
             </div>
             <br/><br/><br/>
-            <div class="col-12"> 
-                <div>
-                    <label>Tope</label>
-                    <input id="topeNum" disabled />
-                  </div>
-                <h3>Actual : Mayo - semana 2 - 2019</h3>
-                <div>
-                  <label>Cantidad Pronosticada</label>
-                  <input id="predictNum" disabled />
-                </div>
-                <div>
-                  <label>Reservas actuales</label>
-                  <input id="reservasNum" disabled />
-                </div>
-                <div>
-                  <label>Reservas clasificadas : asistencia</label>
-                  <input id="reservasPosNum" disabled />
-                </div>
-                <div>
-                  <label>Reservas clasificadas : falta</label>
-                  <input id="reservasNegNum" disabled />
-                </div>
-                <div>
-                  <label>Cantidad real</label>
-                  <input id="realNum" disabled />
-                </div>
+            <div class="col-6">
+              <label for="exampleFormControlSelect1">Fecha reserva</label>
+              <select class="form-control form-control-lg" id="date">
+                <option value="M-S4-2019">M-S4-2019</option>
+                <option value="J-S1-2019">J-S1-2019</option>
+                <option value="J-S2-2019">J-S2-2019</option>
+                <option value="J-S3-2019">J-S3-2019</option>
+                <option value="J-S4-2019">J-S4-2019</option>
+                <option value="JL-S1-2019">JL-S1-2019</option>
+                <option value="JL-S2-2019">JL-S2-2019</option>
+                <option value="JL-S3-2019">JL-S3-2019</option>
+                <option value="JL-S4-2019">JL-S4-2019</option>
+              </select>
+            </div>
+            <div class="col-6">
+              <label for="exampleFormControlSelect1">Disponibilidad</label>
+              <input disabled class="form-control form-control-lg" id="dispo" value="24" type="number" />
+            </div>
+            <div class="col-12">
+              <label>Cantidad Pronosticada</label>
+              <input id="predictNum" disabled />
+            </div>
+            <div class="col-12">
+              <label>Reservas actuales</label>
+              <input id="reservasNum" disabled />
+            </div>
+            <div class="col-12">
+              <label>Reservas clasificadas : asistencia</label>
+              <input id="reservasPosNum" disabled />
+            </div>
+            <div class="col-12">
+              <label>Reservas clasificadas : falta</label>
+              <input id="reservasNegNum" disabled />
+            </div>
+            <div class="col-12">
+              <label>Sobreventa</label>
+              <input id="overbooking" disabled />
+            </div>
+            <div class="col-12">
+              <label>Cantidad real</label>
+              <input id="realNum" disabled />
             </div>
           </div>
+         
         </div>
         <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->
@@ -131,17 +147,10 @@
     </div>
     <!-- page-body-wrapper ends -->
   </div>
-  <!-- container-scroller -->
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <!-- plugins:js -->
   <script src="static/vendors/js/vendor.bundle.base.js"></script>
   <script src="static/vendors/js/vendor.bundle.addons.js"></script>
-  <!-- endinject -->
-  <!-- Plugin js for this page-->
-  <!-- End plugin js for this page-->
-  <!-- endinject -->
-  <!-- Custom js for this page-->
-  <!-- End custom js for this page-->
+  <script src="static/js/ws.js"></script>
   <script src="static/js/integration.js"></script>
   <script src="static/js/main.js"></script>
 </body>
