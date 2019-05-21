@@ -213,7 +213,7 @@ const setValues = async (data, labels) => {
   deleteValues()
 
   const date = document.getElementById('date').value
-  const dispo = document.getElementById('dispo').value
+  const dispo = Number(document.getElementById('dispo').value)
   const predictNum = document.getElementById('predictNum')
   const reservasNum = document.getElementById('reservasNum')
   const reservasPosNum = document.getElementById('reservasPosNum')
@@ -281,6 +281,7 @@ const filterByDate = (data, date) => {
 }
 
 const overbookingCalcule = (actual, dispo, real, canceladas) => {
+  console.log(actual, dispo, real, canceladas)
   if (actual < dispo) return 0
   if (actual > dispo && real < dispo) return canceladas
   if (actual > dispo && real > dispo) return 0
