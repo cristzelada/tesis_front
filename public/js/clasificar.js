@@ -34,7 +34,7 @@ calcular.addEventListener('click', async () => {
 const postClasification = async (data) => {
   try {
     waiting(true)
-    const response = await axios.post(url)
+    const response = await axios.post(url, data)
     waiting(false)
     return response.data
   } catch (error) {

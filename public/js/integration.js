@@ -4,6 +4,7 @@ const main = async () => {
   const predictLabels = getPredictLabels()
   const historyLabels = getHitoryLabels()
   const predictArray = getPredictArray(historyArray, data)
+
   new Chart(document.getElementById('predictChart'), {
     type: 'line',
     data: {
@@ -213,7 +214,10 @@ const setValues = async (data, labels) => {
   deleteValues()
 
   const date = document.getElementById('date').value
-  const dispo = Number(document.getElementById('dispo').value)
+
+  const dispoReal = document.getElementById('dispoReal')
+  const dispoSupuesto = document.getElementById('dispoSupuesta')
+
   const predictNum = document.getElementById('predictNum')
   const reservasNum = document.getElementById('reservasNum')
   const reservasPosNum = document.getElementById('reservasPosNum')
@@ -224,9 +228,20 @@ const setValues = async (data, labels) => {
   const clasifications = await getClasification()
 
   const reservationsByDate = filterByDate(clasifications, date)
+
   if (reservationsByDate.length) {
-    const falta = reservationsByDate.filter((x) => x.clasification === 0)
-    const asistencia = reservationsByDate.filter((x) => x.clasification === 1)
+    const reservasFalta = reservationsByDate.filter(
+      (x) => x.clasification === 0
+    )
+    const reservasAsistencia = reservationsByDate.filter(
+      (x) => x.clasification === 1
+    )
+
+    reservasFaltaRooms = calculateRoomByReservation(reservasFalta)
+
+    reservasAsistenciaRooms = calculateRoomByReservation(reservasAsistencia)
+
+    reservasTotalRooms = reservasAsistenciaRooms + reservasFaltaRooms
 
     const predictReservationsByDate = getPredictReservationByDate(
       date,
@@ -234,26 +249,43 @@ const setValues = async (data, labels) => {
       labels
     )
 
-    predictNum.value = predictReservationsByDate.length
-    reservasNum.value = reservationsByDate.length
-    reservasPosNum.value = asistencia.length
-    reservasNegNum.value = falta.length
+    predictNum.value = predictReservationsByDate
 
-    const validToOverbooking =
-      reservationsByDate.length > dispo &&
-      reservationsByDate.length < predictReservationsByDate.length
-        ? 'HABILITADO'
-        : 'NO HABILITADO'
+    reservasNum.value = reservasTotalRooms
+    reservasPosNum.value = reservasAsistenciaRooms
+    reservasNegNum.value = reservasFaltaRooms
 
-    const overbooking = overbookingCalcule(
-      reservationsByDate.length,
-      dispo,
-      asistencia.length,
-      falta.length
-    )
-    overbookingNum.value = validToOverbooking
-    realNum.value = overbooking
+    const toOverbooking = 24 - reservasTotalRooms < 0 ? true : false
+
+    dispoSupuesto.value = 24 - reservasTotalRooms
+    dispoReal.value =
+      24 - reservasFaltaRooms < 0
+        ? 24 - reservasAsistenciaRooms
+        : 24 - reservasFaltaRooms
+
+    overbookingNum.value = !toOverbooking
+      ? 'NO HABILITADO'
+      : overbookingCalcule(
+          predictReservationsByDate,
+          reservasTotalRooms,
+          dispoReal.value
+        )
+
+    realNum.value =
+      predictReservationsByDate > reservasTotalRooms
+        ? 'BAJO PRONOSTICO'
+        : 'SOBRE PRONOSTICO'
+  } else {
+    alert('No hay reservas para esa semana')
   }
+}
+
+const calculateRoomByReservation = (data) => {
+  let sum = 0
+  for (let d of data) {
+    sum = sum + Number(d.rooms)
+  }
+  return sum
 }
 
 const deleteValues = () => {
@@ -280,12 +312,8 @@ const filterByDate = (data, date) => {
   return data.filter((x) => x.date === date)
 }
 
-const overbookingCalcule = (actual, dispo, real, canceladas) => {
-  console.log(actual, dispo, real, canceladas)
-  if (actual < dispo) return 0
-  if (actual > dispo && real < dispo) return canceladas
-  if (actual > dispo && real > dispo) return 0
-  return 0
+const overbookingCalcule = (pronosticadas, actuales, real) => {
+  return pronosticadas < actuales ? 'NO VENDER' : real
 }
 
 main()
