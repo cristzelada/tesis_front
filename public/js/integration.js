@@ -255,13 +255,13 @@ const setValues = async (data, labels) => {
     reservasPosNum.value = reservasAsistenciaRooms
     reservasNegNum.value = reservasFaltaRooms
 
-    const toOverbooking = 24 - reservasTotalRooms < 0 ? true : false
+    const toOverbooking = 70 - reservasTotalRooms < 0 ? true : false
 
-    dispoSupuesto.value = 24 - reservasTotalRooms
+    dispoSupuesto.value = 70 - reservasTotalRooms
     dispoReal.value =
-      24 - reservasFaltaRooms < 0
-        ? 24 - reservasAsistenciaRooms
-        : 24 - reservasFaltaRooms
+      70 - reservasFaltaRooms < 0
+        ? 70 - reservasAsistenciaRooms
+        : 70 - reservasFaltaRooms
 
     overbookingNum.value = !toOverbooking
       ? 'NO HABILITADO'
